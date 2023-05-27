@@ -9,14 +9,11 @@ import re
 
 def user_input(data):
 
-    #In Python, you can't split a string with an empty separator ('') using the split() method. 
-    #The method requires a delimiter to know where to split the string
-    lTransformation = list(data)
-    lTransformation = [item for item in data if item.strip()]
-
-    #BUG Identifed - list data type seperates each digit into a seperate element in the list
-    # so any 2 digits or more equations will not work 
-
+    # Regex is important for parsing through user input and I have used findall to validate
+    # the data and have split empty spaces to get each operant on its own
+    lTransformation = re.findall(data,"(\d+)\s*(\+|-|\*|\/)\s*(\d+)")
+    lTransformation = re.split(" ", data)
+ 
     lLHS = float(lTransformation[0])
     lOperator = lTransformation[1]
     lRHS = float(lTransformation[2])
